@@ -1,4 +1,4 @@
-package com.example.poc_test_rx
+package com.example.poc_test_rx.util
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel

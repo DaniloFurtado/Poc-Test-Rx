@@ -1,10 +1,8 @@
-package com.example.poc_test_rx
+package com.example.poc_test_rx.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.poc_test_rx.data.RepositoryUser
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.poc_test_rx.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

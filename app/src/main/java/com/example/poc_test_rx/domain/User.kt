@@ -1,4 +1,4 @@
-package com.example.poc_test_rx.model
+package com.example.poc_test_rx.domain
 
 data class User(
     val id: Int,
