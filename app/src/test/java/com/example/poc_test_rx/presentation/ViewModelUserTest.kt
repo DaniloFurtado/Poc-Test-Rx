@@ -32,7 +32,6 @@ class ViewModelUserTest {
         `then repository method must be call once`()
     }
 
-
     private fun `given I request user success`() {
         coEvery { repositoryUser.getUser() } returns responseGetUserExpected
     }
