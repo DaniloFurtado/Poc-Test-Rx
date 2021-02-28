@@ -1,11 +1,7 @@
 package com.example.poc_test_rx.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.poc_test_rx.data.RepositoryUser
-import com.example.poc_test_rx.presentation.ViewModelUser
-import com.example.poc_test_rx.presentation.responseGetUserException
-import com.example.poc_test_rx.presentation.responseGetUserExpected
-import com.example.poc_test_rx.presentation.validUser
+import com.example.poc_test_rx.domain.RepositoryUser
 import com.example.poc_test_rx.utils.RxAndroidSchedulerRule
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -17,7 +13,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-
 class ViewModelUserTest {
 
     @get:Rule
@@ -27,33 +22,32 @@ class ViewModelUserTest {
     val rxAndroidSchedulerRule = RxAndroidSchedulerRule()
 
     private val repositoryUser = mockk<RepositoryUser>()
-    private val viewModel =
-        ViewModelUser(repositoryUser)
-
+    private val viewModel = ViewModelUser(repositoryUser)
 
     @Test
-    fun `request user data success`(){
+    fun `request user data success`() {
         `given I request user success`()
         `when I request user`()
         `then a valid user is returned`()
         `then repository method must be call once`()
     }
 
-    private fun `given I request user success`(){
+    private fun `given I request user success`() {
         coEvery { repositoryUser.getUser() } returns responseGetUserExpected
     }
 
-    private fun `when I request user`(){
+    private fun `when I request user`() {
         viewModel.getUser()
     }
 
-    private fun `then repository method must be call once`(){
+    private fun `then repository method must be call once`() {
         coVerify(exactly = 1) { repositoryUser.getUser() }
     }
 
-    private fun `then a valid user is returned`(){
+    private fun `then a valid user is returned`() {
         assertNotNull(viewModel.getUser.value)
-        assertEquals(viewModel.getUser.value!!,
+        assertEquals(
+            viewModel.getUser.value!!,
             validUser
         )
         assertEquals(viewModel.getUser.value!!.id, validUser.id)
@@ -67,11 +61,11 @@ class ViewModelUserTest {
         `then repository method must be call once`()
     }
 
-    private fun `given I request user exception`(){
+    private fun `given I request user exception`() {
         coEvery { repositoryUser.getUser() } returns responseGetUserException
     }
 
-    private fun `then a exception must be catch`(){
+    private fun `then a exception must be catch`() {
         assertNotNull(viewModel.errorGetUser.value)
         assertTrue {
             viewModel.errorGetUser.value is Exception
@@ -79,18 +73,18 @@ class ViewModelUserTest {
     }
 
     @Test
-    fun `request user IoException`(){
+    fun `request user IoException`() {
         `given I request user IoException`()
         `when I request user`()
         `then a IOException must be catch`()
         `then repository method must be call once`()
     }
 
-    private fun `given I request user IoException`(){
+    private fun `given I request user IoException`() {
         coEvery { repositoryUser.getUser() } returns responseGetUserIOException
     }
 
-    private fun `then a IOException must be catch`(){
+    private fun `then a IOException must be catch`() {
         assertNotNull(viewModel.errorGetUser.value)
         assertTrue {
             viewModel.errorGetUser.value is IOException
