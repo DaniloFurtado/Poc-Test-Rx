@@ -21,7 +21,7 @@ class ViewModelUser(
             .getUser()
             .androidSubscribe()
             .subscribe(
-                _getUser::setValue,
+                _getUser::postValue,
                 _errorGetUser::setValue
             ).addToDisposable()
     }

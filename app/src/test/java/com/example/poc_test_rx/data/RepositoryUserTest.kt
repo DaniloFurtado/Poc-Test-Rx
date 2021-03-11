@@ -21,7 +21,7 @@ class RepositoryUserTest {
 
     private val service = mockk<UserService>()
     private val repository = RepositoryUserImp(service)
-    private var userExpected: Single<User> = Single.just(User(0, "", ""))
+    private var userExpected: Single<User>? = null
 
     @Test
     fun `get user service  success`() {
@@ -44,9 +44,9 @@ class RepositoryUserTest {
     }
 
     private fun `then the user product must be received`() {
-        userExpected.test().assertComplete()
-        userExpected.test().assertNoErrors()
-        userExpected.test().assertValue {
+        userExpected!!.test().assertComplete()
+        userExpected!!.test().assertNoErrors()
+        userExpected!!.test().assertValue {
             it.name.isNotEmpty()
             it.description.isNotEmpty()
         }
@@ -65,8 +65,8 @@ class RepositoryUserTest {
     }
 
     private fun `then the exception must be catch`() {
-        userExpected.test().assertError(Exception::class.java)
-        userExpected.test().assertNotComplete()
+        userExpected!!.test().assertError(Exception::class.java)
+        userExpected!!.test().assertNotComplete()
     }
 
     @Test
@@ -82,7 +82,7 @@ class RepositoryUserTest {
     }
 
     private fun `then the io exception must be catch`() {
-        userExpected.test().assertError(IOException::class.java)
-        userExpected.test().assertNotComplete()
+        userExpected!!.test().assertError(IOException::class.java)
+        userExpected!!.test().assertNotComplete()
     }
 }
