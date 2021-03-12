@@ -44,11 +44,13 @@ class RepositoryUserTest {
     }
 
     private fun `then the user product must be received`() {
-        userExpected!!.test().assertComplete()
-        userExpected!!.test().assertNoErrors()
-        userExpected!!.test().assertValue {
-            it.name.isNotEmpty()
-            it.description.isNotEmpty()
+        userExpected!!.run {
+            test().assertComplete()
+            test().assertNoErrors()
+            test().assertValue {
+                it.name.isNotEmpty()
+                it.description.isNotEmpty()
+            }
         }
     }
 
