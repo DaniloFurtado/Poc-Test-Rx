@@ -6,9 +6,9 @@ import com.example.poc_test_rx.presentation.responseGetUserException
 import com.example.poc_test_rx.presentation.responseGetUserExpected
 import com.example.poc_test_rx.presentation.responseGetUserIOException
 import com.example.poc_test_rx.utils.RxAndroidSchedulerRule
-import io.mockk.coEvery
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import io.reactivex.rxjava3.core.Single
 import org.junit.Rule
 import java.io.IOException
@@ -18,7 +18,6 @@ class RepositoryUserTest {
 
     @get:Rule
     val rxAndroidSchedulerRule = RxAndroidSchedulerRule()
-
     private val service = mockk<UserService>()
     private val repository = RepositoryUserImp(service)
     private var userExpected: Single<User>? = null
@@ -32,7 +31,7 @@ class RepositoryUserTest {
     }
 
     private fun `given I request user`() {
-        coEvery { service.getUser() } returns responseGetUserExpected
+        every { service.getUser() } returns responseGetUserExpected
     }
 
     private fun `when I request user data`() {
@@ -40,7 +39,7 @@ class RepositoryUserTest {
     }
 
     private fun `then service get user request once`() {
-        coVerify(exactly = 1) { service.getUser() }
+        verify(exactly = 1) { service.getUser() }
     }
 
     private fun `then the user product must be received`() {
@@ -63,7 +62,7 @@ class RepositoryUserTest {
     }
 
     private fun `given I request user exception`() {
-        coEvery { service.getUser() } returns responseGetUserException
+        every { service.getUser() } returns responseGetUserException
     }
 
     private fun `then the exception must be catch`() {
@@ -80,7 +79,7 @@ class RepositoryUserTest {
     }
 
     private fun `given I request user io exception`() {
-        coEvery { service.getUser() } returns responseGetUserIOException
+        every { service.getUser() } returns responseGetUserIOException
     }
 
     private fun `then the io exception must be catch`() {

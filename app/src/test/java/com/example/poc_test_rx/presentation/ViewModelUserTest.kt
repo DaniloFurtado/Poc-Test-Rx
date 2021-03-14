@@ -3,9 +3,9 @@ package com.example.poc_test_rx.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.poc_test_rx.domain.RepositoryUser
 import com.example.poc_test_rx.utils.RxAndroidSchedulerRule
-import io.mockk.coEvery
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Rule
 import org.junit.Test
 import java.io.IOException
@@ -20,7 +20,6 @@ class ViewModelUserTest {
 
     @get:Rule
     val rxAndroidSchedulerRule = RxAndroidSchedulerRule()
-
     private val repositoryUser = mockk<RepositoryUser>()
     private val viewModel = ViewModelUser(repositoryUser)
 
@@ -33,7 +32,7 @@ class ViewModelUserTest {
     }
 
     private fun `given I request user success`() {
-        coEvery { repositoryUser.getUser() } returns responseGetUserExpected
+        every { repositoryUser.getUser() } returns responseGetUserExpected
     }
 
     private fun `when I request user`() {
@@ -41,7 +40,7 @@ class ViewModelUserTest {
     }
 
     private fun `then repository method must be call once`() {
-        coVerify(exactly = 1) { repositoryUser.getUser() }
+        verify(exactly = 1) { repositoryUser.getUser() }
     }
 
     private fun `then a valid user is returned`() {
@@ -62,7 +61,7 @@ class ViewModelUserTest {
     }
 
     private fun `given I request user exception`() {
-        coEvery { repositoryUser.getUser() } returns responseGetUserException
+        every { repositoryUser.getUser() } returns responseGetUserException
     }
 
     private fun `then a exception must be catch`() {
@@ -81,7 +80,7 @@ class ViewModelUserTest {
     }
 
     private fun `given I request user IoException`() {
-        coEvery { repositoryUser.getUser() } returns responseGetUserIOException
+        every { repositoryUser.getUser() } returns responseGetUserIOException
     }
 
     private fun `then a IOException must be catch`() {
