@@ -8,6 +8,6 @@ import io.reactivex.rxjava3.core.Single
 class RepositoryUserImp(
     private val userService: UserService
 ) : RepositoryUser {
-    override fun getUser(): Single<User> = userService.getUser()
 
+    override fun getUser(): Single<User> = userService.getUser()
 }
